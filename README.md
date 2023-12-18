@@ -1,6 +1,6 @@
 ### Description
-- example dotnet 7 app proxying to [luceed](http://apidemo.luceed.hr)
-- using C# 11, dotnet 7.0.404 on debian 12
+- dotnet 7 app proxying to [luceed](https://kb.luceed.hr/)
+- using C# 11 and dotnet 7.0.404 on debian 12
 
 ### Requirements
 - dotnet, make
@@ -12,6 +12,12 @@ $ dotnet run --project=lucxy
 or
 ```console
 $ make run
+```
+
+### Test
+```console
+$ cd lucxytest
+$ dotnet test
 ```
 
 ### Endpoints

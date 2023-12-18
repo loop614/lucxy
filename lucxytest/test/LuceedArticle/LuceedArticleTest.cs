@@ -1,7 +1,7 @@
 using Lucxy.LuceedArticle;
 using Lucxy.LuceedArticle.Transfer;
 
-namespace lucxytest;
+namespace lucxytest.LuceedArticle;
 
 public class LuceedArticleTest
 {

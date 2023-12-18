@@ -1,7 +1,7 @@
 using Lucxy.LuceedTransaction;
 using Lucxy.LuceedTransaction.Transfer;
 
-namespace lucxytest;
+namespace lucxytest.LuceedTransaction;
 
 public class LuceedTransactionTest
 {

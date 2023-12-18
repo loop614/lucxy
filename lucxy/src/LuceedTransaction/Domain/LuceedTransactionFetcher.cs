@@ -14,9 +14,7 @@ public class LuceedTransactionFetcher: ILuceedTransactionFetcher {
 
     public async Task<LuceedTransactionArticleResponse?> FetchLuceedArticleTransactions(LuceedTransactionRequest request)
     {
-        string DateFrom = request.DateFrom.Day + "." + request.DateFrom.Month + "." + request.DateFrom.Year;
-        string DateTo = request.DateTo.Day + "." + request.DateTo.Month + "." + request.DateTo.Year;
-        var uri = $"mpobracun/artikli/{request.PjUid}/{DateFrom}/{DateTo}";
+        var uri = $"mpobracun/artikli/{request.PjUid}/{request.DateFrom.ToString("dd.MM.yyyy")}/{request.DateTo.ToString("dd.MM.yyyy")}";
         var responseBody = await _luceedClientFacade.Get(uri);
 
         return JsonConvert.DeserializeObject<LuceedTransactionArticleResponse>(responseBody);
@@ -24,9 +22,7 @@ public class LuceedTransactionFetcher: ILuceedTransactionFetcher {
 
     public async Task<LuceedTransactionPaymentResponse?> FetchLuceedPaymentTransactions(LuceedTransactionRequest request)
     {
-        string DateFrom = request.DateFrom.Day + "." + request.DateFrom.Month + "." + request.DateFrom.Year;
-        string DateTo = request.DateTo.Day + "." + request.DateTo.Month + "." + request.DateTo.Year;
-        var uri = $"mpobracun/artikli/{request.PjUid}/{DateFrom}/{DateTo}";
+        var uri = $"mpobracun/artikli/{request.PjUid}/{request.DateFrom.ToString("dd.MM.yyyy")}/{request.DateTo.ToString("dd.MM.yyyy")}";
         var responseBody = await _luceedClientFacade.Get(uri);
 
         return JsonConvert.DeserializeObject<LuceedTransactionPaymentResponse>(responseBody);

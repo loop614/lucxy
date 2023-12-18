@@ -4,6 +4,7 @@ using Lucxy.LuceedArticle.Domain;
 using Lucxy.LuceedClient;
 using Lucxy.LuceedTransaction;
 using Lucxy.LuceedTransaction.Domain;
+using lucxytest.LuceedClient;
 
 namespace lucxytest;
 

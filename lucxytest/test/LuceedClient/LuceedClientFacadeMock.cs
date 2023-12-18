@@ -1,6 +1,6 @@
 using Lucxy.LuceedClient;
 
-namespace lucxytest;
+namespace lucxytest.LuceedClient;
 
 public class LuceedClientFacadeMock : ILuceedClientFacade
 {
@@ -16,10 +16,10 @@ public class LuceedClientFacadeMock : ILuceedClientFacade
         if (uri.Equals("artikli/naziv/pri/[0,10]")) {
             return Task.FromResult(File.ReadAllText(projectDirectoryPath + "/Data/LuceedArticle/LuceedArticleResponse.json"));
         }
-        if (uri.Equals("mpobracun/artikli/132/1.1.1999/1.1.2024")) {
+        if (uri.Equals("mpobracun/artikli/132/01.01.1999/01.01.2024")) {
             return Task.FromResult(File.ReadAllText(projectDirectoryPath + "/Data/LuceedTransaction/LuceedTransactionArticleResponse.json"));
         }
-        if (uri.Equals("mpobracun/placanja/132/1.1.1999/1.1.2024")) {
+        if (uri.Equals("mpobracun/placanja/132/01.01.1999/01.01.2024")) {
             return Task.FromResult(File.ReadAllText(projectDirectoryPath + "/Data/LuceedTransaction/LuceedTransactionPaymentResponse.json"));
         }
 

@@ -14,11 +14,12 @@ if (settings is null) {
     return;
 }
 
-var authenticationString = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes($"{settings.Username}:{settings.Password}"));
+var authenticationString = $"{settings.Username}:{settings.Password}";
+var base64EncodedAuthenticationString = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(authenticationString));
 builder.Services.AddHttpClient("Luceed", httpClient =>
 {
     httpClient.BaseAddress = new Uri(settings.BaseUrl);
-    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authenticationString);
+    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64EncodedAuthenticationString);
 });
 
 // LuceedClient
