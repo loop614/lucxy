@@ -1,10 +1,10 @@
 using System.Text.Json.Serialization;
 
-namespace Tomsoft.LuceedClient.Transfer;
+namespace Lucxy.LuceedArticle.Transfer;
 
 public class LuceedArticleResponse
 {
-    [JsonPropertyName("result")]
+    [JsonPropertyName("Result")]
     public List<LuceedArticleResult>? result { get; set; }
 }
 
@@ -16,7 +16,7 @@ public class LuceedArticleResult
 
 public class LuceedArticle
 {
-    [JsonPropertyName("id")]
+    [JsonPropertyName("Id")]
     public int Id { get; init; }
 
     [JsonPropertyName("Name")]

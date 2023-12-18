@@ -1,6 +1,6 @@
-using Tomsoft.LuceedClient.Transfer;
+using Lucxy.LuceedTransaction.Transfer;
 
-namespace Tomsoft.LuceedTransaction.Domain;
+namespace Lucxy.LuceedTransaction.Domain;
 
 public interface ILuceedTransactionFetcher {
     Task<LuceedTransactionArticleResponse?> FetchLuceedArticleTransactions(LuceedTransactionRequest request);

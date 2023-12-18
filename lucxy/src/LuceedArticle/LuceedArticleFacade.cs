@@ -1,7 +1,7 @@
-using Tomsoft.LuceedArticle.Domain;
-using Tomsoft.LuceedClient.Transfer;
+using Lucxy.LuceedArticle.Domain;
+using Lucxy.LuceedArticle.Transfer;
 
-namespace Tomsoft.LuceedArticle;
+namespace Lucxy.LuceedArticle;
 
 public class LuceedArticleFacade : ILuceedArticleFacade {
     private readonly ILuceedArticleFetcher _articleFetcher;
@@ -9,7 +9,7 @@ public class LuceedArticleFacade : ILuceedArticleFacade {
         _articleFetcher = articleFetcher;
     }
 
-    public Task<LuceedArticleResponse?> GetLuceedArticlesWhereNameLike(String name) {
-        return _articleFetcher.FetchLuceedArticlesWhereNameLike(name);
+    public Task<LuceedArticleResponse?> FetchLuceedArticlesWhereNameLike(LuceedArticleRequest luceedArticleRequest) {
+        return _articleFetcher.FetchLuceedArticlesWhereNameLike(luceedArticleRequest);
     }
 }

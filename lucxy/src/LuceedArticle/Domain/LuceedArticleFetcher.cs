@@ -1,24 +1,21 @@
-namespace Tomsoft.LuceedArticle.Domain;
+namespace Lucxy.LuceedArticle.Domain;
 
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Tomsoft.LuceedClient;
-using Tomsoft.LuceedClient.Transfer;
+using Lucxy.LuceedArticle.Transfer;
+using Lucxy.LuceedClient;
 
-class LuceedArticleFetcher: ILuceedArticleFetcher {
+public class LuceedArticleFetcher: ILuceedArticleFetcher {
     private readonly ILuceedClientFacade _luceedClientFacade;
 
-    private readonly IConfiguration _configuration;
-
-    public LuceedArticleFetcher(ILuceedClientFacade luceedClientFacade, IConfiguration configuration)
+    public LuceedArticleFetcher(ILuceedClientFacade luceedClientFacade)
     {
         _luceedClientFacade = luceedClientFacade;
-        _configuration = configuration;
     }
 
-    public async Task<LuceedArticleResponse?> FetchLuceedArticlesWhereNameLike(string name)
+    public async Task<LuceedArticleResponse?> FetchLuceedArticlesWhereNameLike(LuceedArticleRequest luceedArticleRequest)
     {
-        var uri = $"artikli/naziv/{name}/[0,10]";
+        var uri = $"artikli/naziv/{luceedArticleRequest.Name}/[{luceedArticleRequest.From},{luceedArticleRequest.To}]";
         var responseBody = await _luceedClientFacade.Get(uri);
 
         return JsonConvert.DeserializeObject<LuceedArticleResponse>(responseBody);

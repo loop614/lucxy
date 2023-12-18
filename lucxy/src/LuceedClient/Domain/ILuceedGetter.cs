@@ -1,4 +1,4 @@
-namespace Tomsoft.LuceedClient;
+namespace Lucxy.LuceedClient;
 
 public interface ILuceedGetter
 {

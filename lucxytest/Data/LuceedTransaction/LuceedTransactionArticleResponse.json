@@ -1,0 +1,43 @@
+{
+    "result": [
+        {
+            "obracun_artikli": [
+                {
+                    "artikl_uid": "8-42",
+                    "naziv_artikla": "Kuharica za sva godišnja doba",
+                    "kolicina": 1,
+                    "iznos": 459,
+                    "usluga": "N"
+                },
+                {
+                    "artikl_uid": "10-42",
+                    "naziv_artikla": "Priroda i društvo, radna bilježnica za 1. razred",
+                    "kolicina": 1,
+                    "iznos": 35,
+                    "usluga": "N"
+                },
+                {
+                    "artikl_uid": "108-42",
+                    "naziv_artikla": "Kartonska kutija ABC",
+                    "kolicina": -1,
+                    "iznos": -91.8,
+                    "usluga": "N"
+                },
+                {
+                    "artikl_uid": "153-42",
+                    "naziv_artikla": "Vodka dom. 0,03",
+                    "kolicina": -1,
+                    "iznos": -91.8,
+                    "usluga": "N"
+                },
+                {
+                    "artikl_uid": "592-42",
+                    "naziv_artikla": "Taxi Prijevoz",
+                    "kolicina": 72,
+                    "iznos": 15653.56,
+                    "usluga": "D"
+                }
+            ]
+        }
+    ]
+}

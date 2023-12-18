@@ -1,25 +1,24 @@
 using System.Net.Http.Headers;
-using Tomsoft.LuceedArticle;
-using Tomsoft.LuceedArticle.Domain;
-using Tomsoft.LuceedClient;
-using Tomsoft.LuceedTransaction;
-using Tomsoft.LuceedTransaction.Domain;
-using Tomsoft.TomsoftCore.Transfer;
+using Lucxy.LuceedArticle;
+using Lucxy.LuceedArticle.Domain;
+using Lucxy.LuceedClient;
+using Lucxy.LuceedTransaction;
+using Lucxy.LuceedTransaction.Domain;
+using Lucxy.LucxyCore.Transfer;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
-var settings = builder.Configuration.GetSection("Luceed").Get<TomsoftAppSettings>();
+var settings = builder.Configuration.GetSection("Luceed").Get<LucxyAppSettings>();
 if (settings is null) {
     Console.WriteLine("Error: Could not load settings");
     return;
 }
 
-var authenticationString = $"{settings.Username}:{settings.Password}";
-var base64String = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(authenticationString));
+var authenticationString = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes($"{settings.Username}:{settings.Password}"));
 builder.Services.AddHttpClient("Luceed", httpClient =>
 {
     httpClient.BaseAddress = new Uri(settings.BaseUrl);
-    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64String);
+    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authenticationString);
 });
 
 // LuceedClient

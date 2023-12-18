@@ -1,7 +1,7 @@
-using Tomsoft.LuceedClient.Transfer;
-using Tomsoft.LuceedTransaction.Domain;
+using Lucxy.LuceedTransaction.Domain;
+using Lucxy.LuceedTransaction.Transfer;
 
-namespace Tomsoft.LuceedTransaction;
+namespace Lucxy.LuceedTransaction;
 
 public class LuceedTransactionFacade : ILuceedTransactionFacade {
     private readonly ILuceedTransactionFetcher _luceedTransactionFetcher;

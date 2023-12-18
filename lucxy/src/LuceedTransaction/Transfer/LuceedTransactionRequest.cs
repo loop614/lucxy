@@ -1,13 +1,13 @@
-namespace Tomsoft.LuceedTransaction;
+namespace Lucxy.LuceedTransaction.Transfer;
 
 public class LuceedTransactionRequest {
-    public string? PjUid { get; set; }
+    public string PjUid { get; set; }
 
-    public DateTime? DateFrom { get; set; }
+    public DateOnly DateFrom { get; set; }
 
-    public DateTime? DateTo { get; set; }
+    public DateOnly DateTo { get; set; }
 
-    public LuceedTransactionRequest(string? pjUid, DateTime? dateFrom, DateTime? dateTo) {
+    public LuceedTransactionRequest(string pjUid, DateOnly dateFrom, DateOnly dateTo) {
         PjUid = pjUid;
         DateFrom = dateFrom;
         DateTo = dateTo;

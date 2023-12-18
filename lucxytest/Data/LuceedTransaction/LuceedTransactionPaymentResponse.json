@@ -1,0 +1,13 @@
+{
+    "result": [
+        {
+            "obracun_placanja": [
+                {
+                    "vrste_placanja_uid": "1-42",
+                    "naziv": "Gotovina",
+                    "iznos": 24840.66
+                }
+            ]
+        }
+    ]
+}

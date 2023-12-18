@@ -1,17 +1,17 @@
 using System.Text.Json.Serialization;
 
-namespace Tomsoft.LuceedClient.Transfer;
+namespace Lucxy.LuceedTransaction.Transfer;
 
 public class LuceedTransactionPaymentResponse
 {
-    [JsonPropertyName("result")]
+    [JsonPropertyName("Result")]
     public List<LuceedTransactionPaymentResult>? result { get; set; }
 }
 
 public class LuceedTransactionPaymentResult
 {
     [JsonPropertyName("PaymentCalculation")]
-    public List<LuceedArticle>? obracun_placanja { get; set; }
+    public List<LuceedTransactionPayment>? obracun_placanja { get; set; }
 }
 
 public class LuceedTransactionPayment

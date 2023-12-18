@@ -1,4 +1,4 @@
-namespace Tomsoft.LuceedClient;
+namespace Lucxy.LuceedClient;
 
 public class LuceedClientFacade : ILuceedClientFacade {
     private readonly ILuceedGetter _luceedClientGetter;

@@ -1,7 +1,7 @@
-using Tomsoft.LuceedClient.Transfer;
+using Lucxy.LuceedArticle.Transfer;
 
-namespace Tomsoft.LuceedArticle.Domain;
+namespace Lucxy.LuceedArticle.Domain;
 
 public interface ILuceedArticleFetcher {
-    Task<LuceedArticleResponse?> FetchLuceedArticlesWhereNameLike(String name);
+    Task<LuceedArticleResponse?> FetchLuceedArticlesWhereNameLike(LuceedArticleRequest luceedArticleRequest);
 }

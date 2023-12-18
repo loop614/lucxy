@@ -1,6 +1,6 @@
-namespace Tomsoft.TomsoftCore.Transfer;
+namespace Lucxy.LucxyCore.Transfer;
 
-public class TomsoftAppSettings
+public class LucxyAppSettings
 {
     public required string BaseUrl { get; set; }
     public required string Username { get; set; }

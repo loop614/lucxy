@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Tomsoft.LuceedClient;
+namespace Lucxy.LuceedClient;
 
 public class LuceedGetter : ILuceedGetter
 {
@@ -24,6 +24,7 @@ public class LuceedGetter : ILuceedGetter
             throw new HttpRequestException();
         }
         luceedArticleResponse.EnsureSuccessStatusCode();
+
         return await luceedArticleResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
     }
 }

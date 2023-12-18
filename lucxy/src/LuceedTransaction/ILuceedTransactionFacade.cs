@@ -1,6 +1,6 @@
-using Tomsoft.LuceedClient.Transfer;
+using Lucxy.LuceedTransaction.Transfer;
 
-namespace Tomsoft.LuceedTransaction;
+namespace Lucxy.LuceedTransaction;
 
 public interface ILuceedTransactionFacade
 {

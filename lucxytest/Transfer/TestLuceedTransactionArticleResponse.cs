@@ -2,19 +2,19 @@ using System.Text.Json.Serialization;
 
 namespace Lucxy.LuceedTransaction.Transfer;
 
-public class LuceedTransactionArticleResponse
+public class TestLuceedTransactionArticleResponse
 {
     [JsonPropertyName("Result")]
     public List<LuceedTransactionArticleResult>? result { get; set; }
 }
 
-public class LuceedTransactionArticleResult
+public class TestLuceedTransactionArticleResult
 {
     [JsonPropertyName("ArticleCalculation")]
     public List<LuceedTransactionArticle>? obracun_artikli { get; set; }
 }
 
-public class LuceedTransactionArticle
+public class TestLuceedTransactionArticle
 {
     [JsonPropertyName("ArticleUid")]
     public string? artikl_uid { get; init; }

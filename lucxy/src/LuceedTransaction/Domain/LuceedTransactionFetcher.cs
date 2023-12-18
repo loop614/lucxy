@@ -1,10 +1,10 @@
 using Newtonsoft.Json;
-using Tomsoft.LuceedClient;
-using Tomsoft.LuceedClient.Transfer;
+using Lucxy.LuceedClient;
+using Lucxy.LuceedTransaction.Transfer;
 
-namespace Tomsoft.LuceedTransaction.Domain;
+namespace Lucxy.LuceedTransaction.Domain;
 
-class LuceedTransactionFetcher: ILuceedTransactionFetcher {
+public class LuceedTransactionFetcher: ILuceedTransactionFetcher {
     private readonly ILuceedClientFacade _luceedClientFacade;
 
     public LuceedTransactionFetcher(ILuceedClientFacade luceedClientFacade)
@@ -14,7 +14,9 @@ class LuceedTransactionFetcher: ILuceedTransactionFetcher {
 
     public async Task<LuceedTransactionArticleResponse?> FetchLuceedArticleTransactions(LuceedTransactionRequest request)
     {
-        var uri = $"{request.PjUid}/{request.DateFrom}/{request.DateTo}";
+        string DateFrom = request.DateFrom.Day + "." + request.DateFrom.Month + "." + request.DateFrom.Year;
+        string DateTo = request.DateTo.Day + "." + request.DateTo.Month + "." + request.DateTo.Year;
+        var uri = $"mpobracun/artikli/{request.PjUid}/{DateFrom}/{DateTo}";
         var responseBody = await _luceedClientFacade.Get(uri);
 
         return JsonConvert.DeserializeObject<LuceedTransactionArticleResponse>(responseBody);
@@ -22,7 +24,9 @@ class LuceedTransactionFetcher: ILuceedTransactionFetcher {
 
     public async Task<LuceedTransactionPaymentResponse?> FetchLuceedPaymentTransactions(LuceedTransactionRequest request)
     {
-        var uri = $"{request.PjUid}/{request.DateFrom}/{request.DateTo}";
+        string DateFrom = request.DateFrom.Day + "." + request.DateFrom.Month + "." + request.DateFrom.Year;
+        string DateTo = request.DateTo.Day + "." + request.DateTo.Month + "." + request.DateTo.Year;
+        var uri = $"mpobracun/artikli/{request.PjUid}/{DateFrom}/{DateTo}";
         var responseBody = await _luceedClientFacade.Get(uri);
 
         return JsonConvert.DeserializeObject<LuceedTransactionPaymentResponse>(responseBody);

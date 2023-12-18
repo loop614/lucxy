@@ -1,4 +1,4 @@
-namespace Tomsoft.TomsoftCore.Controller;
+namespace Lucxy.LucxyCore.Controller;
 
 using Microsoft.AspNetCore.Mvc;
 
