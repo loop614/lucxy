@@ -1,7 +1,7 @@
-namespace Lucxy.LuceedTransaction.Controller;
-
 using Microsoft.AspNetCore.Mvc;
 using Lucxy.LuceedTransaction.Transfer;
+
+namespace Lucxy.LuceedTransaction.Controller;
 
 [Route("luceed/transaction")]
 [ApiController]

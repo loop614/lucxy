@@ -3,9 +3,10 @@ using Npgsql;
 using Lucxy.LucxyCore.Persistence;
 using Lucxy.LucxyCore.Model;
 
-namespace Lucxy.LuceedArticle.Persistence;
+namespace Lucxy.LuceedTransaction.Persistence;
 
-public class LuceedTransactionPaymentPersistence : LucxyCorePersistence {
+public class LuceedTransactionPaymentPersistence : LucxyCorePersistence, ILuceedTransactionPaymentPersistence
+{
     public LuceedTransactionPaymentPersistence(IConfiguration config) : base(config)
     {
     }

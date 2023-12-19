@@ -3,8 +3,8 @@ using Npgsql;
 
 namespace Lucxy.LucxyCore.Persistence;
 
-class LucxyCoreDatabaseInit {
-
+class LucxyCoreDatabaseInit
+{
     public async static Task InitTables(NpgsqlConnection con) {
         var sql = """
             CREATE TABLE IF NOT EXISTS

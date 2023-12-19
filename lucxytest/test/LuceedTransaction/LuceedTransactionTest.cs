@@ -12,8 +12,8 @@ public class LuceedTransactionTest
     [Fact]
     public async void FetchLuceedArticleTransactions()
     {
-        DateOnly from = DateOnly.ParseExact("01.01.1999", "dd.MM.yyyy", null);
-        DateOnly to = DateOnly.ParseExact("01.01.2024", "dd.MM.yyyy", null);
+        DateOnly from = DateOnly.ParseExact("01.01.1999", "dd.MM.yyyy");
+        DateOnly to = DateOnly.ParseExact("01.01.2024", "dd.MM.yyyy");
 
         LuceedTransactionRequest luceedTransactionRequest = new("132", from, to);
         LuceedTransactionArticleResponse? response = await _luceedTransactionFacade.FetchLuceedArticleTransactions(luceedTransactionRequest);

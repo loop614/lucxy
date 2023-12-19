@@ -6,13 +6,14 @@ using Lucxy.LuceedArticle.Transfer;
 using Lucxy.LuceedClient;
 using Lucxy.LuceedArticle.Persistence;
 
-public class LuceedArticleFetcher: ILuceedArticleFetcher {
+public class LuceedArticleFetcher: ILuceedArticleFetcher
+{
     private readonly ILuceedClientFacade _luceedClientFacade;
-    private readonly LuceedArticlePersistence _persistence;
+    private readonly ILuceedArticlePersistence _persistence;
 
     public LuceedArticleFetcher(
         ILuceedClientFacade luceedClientFacade,
-        LuceedArticlePersistence persistence
+        ILuceedArticlePersistence persistence
     ) {
         _luceedClientFacade = luceedClientFacade;
         _persistence = persistence;

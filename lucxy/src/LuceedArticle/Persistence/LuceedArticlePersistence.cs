@@ -1,11 +1,11 @@
 using Dapper;
-using Npgsql;
 using Lucxy.LucxyCore.Persistence;
 using Lucxy.LucxyCore.Model;
 
 namespace Lucxy.LuceedArticle.Persistence;
 
-public class LuceedArticlePersistence : LucxyCorePersistence {
+public class LuceedArticlePersistence : LucxyCorePersistence, ILuceedArticlePersistence
+{
     public LuceedArticlePersistence(IConfiguration config) : base(config)
     {
     }

@@ -3,7 +3,8 @@ using Lucxy.LuceedTransaction.Transfer;
 
 namespace Lucxy.LuceedTransaction;
 
-public class LuceedTransactionFacade : ILuceedTransactionFacade {
+public class LuceedTransactionFacade : ILuceedTransactionFacade
+{
     private readonly ILuceedTransactionFetcher _luceedTransactionFetcher;
     public LuceedTransactionFacade(ILuceedTransactionFetcher luceedTransactionFetcher) {
         _luceedTransactionFetcher = luceedTransactionFetcher;

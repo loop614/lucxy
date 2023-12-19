@@ -1,6 +1,7 @@
 namespace Lucxy.LuceedArticle.Transfer;
 
-public class LuceedArticleRequest {
+public class LuceedArticleRequest
+{
     public string Name { get; set; }
 
     public int From { get; set; }

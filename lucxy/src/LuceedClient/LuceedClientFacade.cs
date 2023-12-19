@@ -1,6 +1,7 @@
 namespace Lucxy.LuceedClient;
 
-public class LuceedClientFacade : ILuceedClientFacade {
+public class LuceedClientFacade : ILuceedClientFacade
+{
     private readonly ILuceedGetter _luceedClientGetter;
     public LuceedClientFacade(ILuceedGetter luceedClientGetter) {
         _luceedClientGetter = luceedClientGetter;

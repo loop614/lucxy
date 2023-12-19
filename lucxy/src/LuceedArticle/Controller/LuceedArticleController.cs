@@ -1,7 +1,7 @@
-namespace Lucxy.LuceedArticle.Controller;
-
 using Microsoft.AspNetCore.Mvc;
 using Lucxy.LuceedArticle.Transfer;
+
+namespace Lucxy.LuceedArticle.Controller;
 
 [Route("luceed/article")]
 [ApiController]

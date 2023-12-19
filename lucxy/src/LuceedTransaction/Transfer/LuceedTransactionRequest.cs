@@ -1,6 +1,7 @@
 namespace Lucxy.LuceedTransaction.Transfer;
 
-public class LuceedTransactionRequest {
+public class LuceedTransactionRequest
+{
     public string PjUid { get; set; }
 
     public DateOnly DateFrom { get; set; }

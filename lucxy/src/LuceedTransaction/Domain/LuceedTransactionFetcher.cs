@@ -1,20 +1,22 @@
 using Newtonsoft.Json;
 using Lucxy.LuceedClient;
 using Lucxy.LuceedTransaction.Transfer;
-using Lucxy.LuceedArticle.Persistence;
+using Lucxy.LuceedTransaction.Persistence;
 
 namespace Lucxy.LuceedTransaction.Domain;
 
-public class LuceedTransactionFetcher: ILuceedTransactionFetcher {
+public class LuceedTransactionFetcher: ILuceedTransactionFetcher
+{
     private readonly ILuceedClientFacade _luceedClientFacade;
 
-    private readonly LuceedTransactionArticlePersistence _articlePersistence;
-    private readonly LuceedTransactionPaymentPersistence _paymentPersistence;
+    private readonly ILuceedTransactionArticlePersistence _articlePersistence;
+
+    private readonly ILuceedTransactionPaymentPersistence _paymentPersistence;
 
     public LuceedTransactionFetcher(
         ILuceedClientFacade luceedClientFacade,
-        LuceedTransactionArticlePersistence luceedTransactionArticlePersistence,
-        LuceedTransactionPaymentPersistence luceedTransactionPaymentPersistence
+        ILuceedTransactionArticlePersistence luceedTransactionArticlePersistence,
+        ILuceedTransactionPaymentPersistence luceedTransactionPaymentPersistence
     ) {
         _luceedClientFacade = luceedClientFacade;
         _articlePersistence = luceedTransactionArticlePersistence;

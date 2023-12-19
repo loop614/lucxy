@@ -1,13 +1,15 @@
 using System.Net.Http.Headers;
+using Npgsql;
 using Lucxy.LuceedArticle;
 using Lucxy.LuceedArticle.Domain;
 using Lucxy.LuceedArticle.Persistence;
 using Lucxy.LuceedClient;
 using Lucxy.LuceedTransaction;
 using Lucxy.LuceedTransaction.Domain;
+using Lucxy.LuceedTransaction.Persistence;
 using Lucxy.LucxyCore.Persistence;
 using Lucxy.LucxyCore.Transfer;
-using Npgsql;
+
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -43,16 +45,16 @@ builder.Services.AddHttpClient("Luceed", httpClient =>
 builder.Services.AddSingleton<ILuceedGetter, LuceedGetter>();
 builder.Services.AddTransient<ILuceedClientFacade, LuceedClientFacade>();
 
-// LuceedArticle
-builder.Services.AddTransient<ILuceedArticleFetcher, LuceedArticleFetcher>();
-builder.Services.AddTransient<ILuceedArticleFacade, LuceedArticleFacade>();
-builder.Services.AddTransient<LuceedArticlePersistence>();
-
 // LuceedTransaction
+builder.Services.AddTransient<ILuceedTransactionArticlePersistence, LuceedTransactionArticlePersistence>();
+builder.Services.AddTransient<ILuceedTransactionPaymentPersistence, LuceedTransactionPaymentPersistence>();
 builder.Services.AddTransient<ILuceedTransactionFetcher, LuceedTransactionFetcher>();
 builder.Services.AddTransient<ILuceedTransactionFacade, LuceedTransactionFacade>();
-builder.Services.AddTransient<LuceedTransactionArticlePersistence>();
-builder.Services.AddTransient<LuceedTransactionPaymentPersistence>();
+
+// LuceedArticle
+builder.Services.AddTransient<ILuceedArticlePersistence, LuceedArticlePersistence>();
+builder.Services.AddTransient<ILuceedArticleFetcher, LuceedArticleFetcher>();
+builder.Services.AddTransient<ILuceedArticleFacade, LuceedArticleFacade>();
 
 var app = builder.Build();
 
