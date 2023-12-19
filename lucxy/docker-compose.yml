@@ -1,0 +1,15 @@
+services:
+  lucxy_postgres:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - lucxy-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=lucxy
+      - POSTGRES_PASSWORD=lucxy
+      - POSTGRES_USER=lucxy
+
+volumes:
+  lucxy-data:
