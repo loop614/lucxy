@@ -17,7 +17,7 @@ if (settingsLuceed is null) {
     return;
 }
 
-var settingsSql = builder.Configuration.GetSection("Sql").Get<LucxyMySqlSettings>();
+var settingsSql = builder.Configuration.GetSection("Sql").Get<LucxySqlSettings>();
 if (settingsSql is null) {
     Console.WriteLine("Error: Could not load sql settings");
     return;
@@ -29,9 +29,7 @@ if (sqlConnection.State != System.Data.ConnectionState.Open) {
     Console.WriteLine("Error: Could not connect to sqlpostgres");
     return;
 }
-
 await LucxyCoreDatabaseInit.InitTables(sqlConnection);
-builder.Services.AddTransient<NpgsqlConnection>((sp) => sqlConnection);
 
 var authenticationString = $"{settingsLuceed.Username}:{settingsLuceed.Password}";
 var base64EncodedAuthenticationString = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(authenticationString));

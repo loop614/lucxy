@@ -6,7 +6,7 @@ using Lucxy.LucxyCore.Model;
 namespace Lucxy.LuceedArticle.Persistence;
 
 public class LuceedTransactionArticlePersistence : LucxyCorePersistence {
-    public LuceedTransactionArticlePersistence(NpgsqlConnection connection) : base(connection)
+    public LuceedTransactionArticlePersistence(IConfiguration config) : base(config)
     {
     }
 
@@ -25,7 +25,7 @@ public class LuceedTransactionArticlePersistence : LucxyCorePersistence {
             return null;
         }
 
-        var cacheHours = (DateTime.UtcNow - firstResponse.createdAt).TotalHours;
+        var cacheHours = (new DateTime() - firstResponse.createdAt).TotalHours;
         if (cacheHours > 1) {
             DeleteCachedResponse(firstResponse.id);
             return null;
