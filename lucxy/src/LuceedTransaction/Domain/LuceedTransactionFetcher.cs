@@ -22,7 +22,7 @@ public class LuceedTransactionFetcher: ILuceedTransactionFetcher {
 
     public async Task<LuceedTransactionPaymentResponse?> FetchLuceedPaymentTransactions(LuceedTransactionRequest request)
     {
-        var uri = $"mpobracun/artikli/{request.PjUid}/{request.DateFrom.ToString("dd.MM.yyyy")}/{request.DateTo.ToString("dd.MM.yyyy")}";
+        var uri = $"mpobracun/placanja/{request.PjUid}/{request.DateFrom.ToString("dd.MM.yyyy")}/{request.DateTo.ToString("dd.MM.yyyy")}";
         var responseBody = await _luceedClientFacade.Get(uri);
 
         return JsonConvert.DeserializeObject<LuceedTransactionPaymentResponse>(responseBody);

@@ -17,11 +17,17 @@ public class LuceedTransactionPaymentResult
 public class LuceedTransactionPayment
 {
     [JsonPropertyName("PaymentTypeUid")]
-    public int vrste_placanja_uid { get; init; }
+    public string? vrste_placanja_uid { get; init; }
 
     [JsonPropertyName("Name")]
     public string? naziv { get; set; }
 
     [JsonPropertyName("Amount")]
     public double? iznos { get; set; }
+
+    [JsonPropertyName("SuperGroupPaymentId")]
+    public string? nadgrupa_placanja_uid { get; set; }
+
+    [JsonPropertyName("SuperGroupPaymentName")]
+    public string? nadgrupa_placanja_naziv { get; set; }
 }
