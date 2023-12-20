@@ -23,12 +23,24 @@ public class LuceedArticleFetcher: ILuceedArticleFetcher
     {
         var uri = $"artikli/naziv/{luceedArticleRequest.Name}/[{luceedArticleRequest.From},{luceedArticleRequest.To}]";
         var cachedResponseBody = _persistence.GetCachedResponseByRequest(uri);
-        if (cachedResponseBody is null) {
-            var responseBody = await _luceedClientFacade.Get(uri);
-            _persistence.SaveCachedResponse(uri, responseBody);
-            return JsonConvert.DeserializeObject<LuceedArticleResponse>(responseBody);
+        if (cachedResponseBody is null)
+        {
+            return await FetcheArticleAndUpdateCache(uri);
         }
 
-        return JsonConvert.DeserializeObject<LuceedArticleResponse>(cachedResponseBody);
+        var cacheDuration = (new DateTime() - cachedResponseBody.createdAt).TotalMinutes;
+        if (cacheDuration > LuceedArticleConfig.cachingMinutes) {
+            _persistence.DeleteCachedResponse(cachedResponseBody.id);
+            return await FetcheArticleAndUpdateCache(uri);
+        }
+
+        return JsonConvert.DeserializeObject<LuceedArticleResponse>(cachedResponseBody.response);
+    }
+
+    private async Task<LuceedArticleResponse?> FetcheArticleAndUpdateCache(string uri)
+    {
+        var responseBody = await _luceedClientFacade.Get(uri);
+        _persistence.SaveCachedResponse(uri, responseBody);
+        return JsonConvert.DeserializeObject<LuceedArticleResponse>(responseBody);
     }
 }

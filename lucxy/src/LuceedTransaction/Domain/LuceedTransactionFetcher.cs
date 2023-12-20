@@ -27,25 +27,51 @@ public class LuceedTransactionFetcher: ILuceedTransactionFetcher
     {
         var uri = $"mpobracun/artikli/{request.PjUid}/{request.DateFrom.ToString("dd.MM.yyyy")}/{request.DateTo.ToString("dd.MM.yyyy")}";
         var cachedResponseBody = _articlePersistence.GetCachedResponseByRequest(uri);
-        if (cachedResponseBody is null) {
-            var responseBody = await _luceedClientFacade.Get(uri);
-            _articlePersistence.SaveCachedResponse(uri, responseBody);
-            return JsonConvert.DeserializeObject<LuceedTransactionArticleResponse>(responseBody);
+        if (cachedResponseBody is null)
+        {
+            return await FetcheArticleAndUpdateCache(uri);
         }
 
-        return JsonConvert.DeserializeObject<LuceedTransactionArticleResponse>(cachedResponseBody);
+        var cacheDuration = (new DateTime() - cachedResponseBody.createdAt).TotalMinutes;
+        if (cacheDuration > LuceedTransactionConfig.cachingArticleMinutes)
+        {
+            _articlePersistence.DeleteCachedResponse(cachedResponseBody.id);
+            return await FetcheArticleAndUpdateCache(uri);
+        }
+
+        return JsonConvert.DeserializeObject<LuceedTransactionArticleResponse>(cachedResponseBody.response);
     }
 
     public async Task<LuceedTransactionPaymentResponse?> FetchLuceedPaymentTransactions(LuceedTransactionRequest request)
     {
         var uri = $"mpobracun/placanja/{request.PjUid}/{request.DateFrom.ToString("dd.MM.yyyy")}/{request.DateTo.ToString("dd.MM.yyyy")}";
         var cachedResponseBody = _paymentPersistence.GetCachedResponseByRequest(uri);
-        if (cachedResponseBody is null) {
-            var responseBody = await _luceedClientFacade.Get(uri);
-            _paymentPersistence.SaveCachedResponse(uri, responseBody);
-            return JsonConvert.DeserializeObject<LuceedTransactionPaymentResponse>(responseBody);
+        if (cachedResponseBody is null)
+        {
+            return await FetchePaymentAndUpdateCache(uri);
         }
 
-        return JsonConvert.DeserializeObject<LuceedTransactionPaymentResponse>(cachedResponseBody);
+        var cacheDuration = (new DateTime() - cachedResponseBody.createdAt).TotalMinutes;
+        if (cacheDuration > LuceedTransactionConfig.cachingPaymentMinutes)
+        {
+            _articlePersistence.DeleteCachedResponse(cachedResponseBody.id);
+            return await FetchePaymentAndUpdateCache(uri);
+        }
+
+        return JsonConvert.DeserializeObject<LuceedTransactionPaymentResponse>(cachedResponseBody.response);
+    }
+
+    private async Task<LuceedTransactionPaymentResponse?> FetchePaymentAndUpdateCache(string uri)
+    {
+        var responseBody = await _luceedClientFacade.Get(uri);
+        _paymentPersistence.SaveCachedResponse(uri, responseBody);
+        return JsonConvert.DeserializeObject<LuceedTransactionPaymentResponse>(responseBody);
+    }
+
+    private async Task<LuceedTransactionArticleResponse?> FetcheArticleAndUpdateCache(string uri)
+    {
+        var responseBody = await _luceedClientFacade.Get(uri);
+        _articlePersistence.SaveCachedResponse(uri, responseBody);
+        return JsonConvert.DeserializeObject<LuceedTransactionArticleResponse>(responseBody);
     }
 }

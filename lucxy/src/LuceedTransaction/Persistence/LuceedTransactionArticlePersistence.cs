@@ -10,13 +10,15 @@ public class LuceedTransactionArticlePersistence : LucxyCorePersistence, ILuceed
     {
     }
 
-    public void SaveCachedResponse(string uri, string responseBody) {
+    public void SaveCachedResponse(string uri, string responseBody)
+    {
         const string sql = @"INSERT INTO luceed_transaction_article_cache (request, response, created_at) VALUES (@request, @response, @created_at)";
         var parameters = new { request = uri, response = responseBody, created_at = new DateTime() };
         _connection.Query<string>(sql, parameters);
     }
 
-    public string? GetCachedResponseByRequest(string uri) {
+    public LuceedRequestResponseCache? GetCachedResponseByRequest(string uri)
+    {
         const string sql = @"SELECT * FROM luceed_transaction_article_cache WHERE request = @request LIMIT 1";
         var parameters = new { request = uri };
         var response = _connection.Query<LuceedRequestResponseCache>(sql, parameters);
@@ -25,16 +27,11 @@ public class LuceedTransactionArticlePersistence : LucxyCorePersistence, ILuceed
             return null;
         }
 
-        var cacheHours = (new DateTime() - firstResponse.createdAt).TotalHours;
-        if (cacheHours > 1) {
-            DeleteCachedResponse(firstResponse.id);
-            return null;
-        }
-
-        return firstResponse.response;
+        return firstResponse;
     }
 
-    private void DeleteCachedResponse(long id) {
+    public void DeleteCachedResponse(long id)
+    {
         const string sql = @"DELETE FROM luceed_transaction_article_cache WHERE id = @id";
         var parameters = new { id };
         _connection.Execute(sql, parameters);
