@@ -25,13 +25,15 @@ if (settingsSql is null) {
     return;
 }
 
-var sqlConnection = new NpgsqlConnection(settingsSql.ConnectionString);
-sqlConnection.Open();
-if (sqlConnection.State != System.Data.ConnectionState.Open) {
-    Console.WriteLine("Error: Could not connect to sqlpostgres");
-    return;
+if (settingsSql.DbCaching) {
+    var sqlConnection = new NpgsqlConnection(settingsSql.ConnectionString);
+    sqlConnection.Open();
+    if (sqlConnection.State != System.Data.ConnectionState.Open) {
+        Console.WriteLine("Error: Could not connect to sqlpostgres");
+        return;
+    }
+    await LucxyCoreDatabaseInit.InitTables(sqlConnection);
 }
-await LucxyCoreDatabaseInit.InitTables(sqlConnection);
 
 var authenticationString = $"{settingsLuceed.Username}:{settingsLuceed.Password}";
 var base64EncodedAuthenticationString = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(authenticationString));
