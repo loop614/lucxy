@@ -22,6 +22,17 @@ public class LuceedArticleFetcher: ILuceedArticleFetcher
     public async Task<LuceedArticleResponse?> FetchLuceedArticlesWhereNameLike(LuceedArticleRequest luceedArticleRequest)
     {
         var uri = $"artikli/naziv/{luceedArticleRequest.Name}/[{luceedArticleRequest.From},{luceedArticleRequest.To}]";
+        if (!LuceedArticleConfig.useDbCaching)
+        {
+            var responseBody = await _luceedClientFacade.Get(uri);
+            return JsonConvert.DeserializeObject<LuceedArticleResponse>(responseBody);
+        }
+
+        return await ResolveLuceedArticleCache(uri);
+    }
+
+    private async Task<LuceedArticleResponse?> ResolveLuceedArticleCache(string uri)
+    {
         var cachedResponseBody = _persistence.GetCachedResponseByRequest(uri);
         if (cachedResponseBody is null)
         {
@@ -29,7 +40,8 @@ public class LuceedArticleFetcher: ILuceedArticleFetcher
         }
 
         var cacheDuration = (new DateTime() - cachedResponseBody.createdAt).TotalMinutes;
-        if (cacheDuration > LuceedArticleConfig.cachingMinutes) {
+        if (cacheDuration > LuceedArticleConfig.cachingMinutes)
+        {
             _persistence.DeleteCachedResponse(cachedResponseBody.id);
             return await FetcheArticleAndUpdateCache(uri);
         }

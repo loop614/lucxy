@@ -1,7 +1,7 @@
 ### Description
 - dotnet 7 app proxying to [luceed](https://kb.luceed.hr/)
 - using C# 11 and dotnet 7.0.404 on debian 12
-- with postgres caching
+- postgres caching needs to be enabled per module in moduleConfig
 
 ### Requirements
 - dotnet, docker
@@ -9,7 +9,7 @@
 ### Quick Start
 ```console
 cd lucxy
-docker compose up
+docker compose up ( if db caching )
 dotnet run
 ```
 
