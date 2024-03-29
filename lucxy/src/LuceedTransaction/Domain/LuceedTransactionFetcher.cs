@@ -5,24 +5,12 @@ using Lucxy.LuceedTransaction.Persistence;
 
 namespace Lucxy.LuceedTransaction.Domain;
 
-public class LuceedTransactionFetcher: ILuceedTransactionFetcher
+public class LuceedTransactionFetcher(
+    ILuceedClientFacade _luceedClientFacade,
+    ILuceedTransactionArticlePersistence _articlePersistence,
+    ILuceedTransactionPaymentPersistence _paymentPersistence
+    ) : ILuceedTransactionFetcher
 {
-    private readonly ILuceedClientFacade _luceedClientFacade;
-
-    private readonly ILuceedTransactionArticlePersistence _articlePersistence;
-
-    private readonly ILuceedTransactionPaymentPersistence _paymentPersistence;
-
-    public LuceedTransactionFetcher(
-        ILuceedClientFacade luceedClientFacade,
-        ILuceedTransactionArticlePersistence luceedTransactionArticlePersistence,
-        ILuceedTransactionPaymentPersistence luceedTransactionPaymentPersistence
-    ) {
-        _luceedClientFacade = luceedClientFacade;
-        _articlePersistence = luceedTransactionArticlePersistence;
-        _paymentPersistence = luceedTransactionPaymentPersistence;
-    }
-
     public async Task<LuceedTransactionArticleResponse?> FetchLuceedArticleTransactions(LuceedTransactionRequest request)
     {
         var uri = $"mpobracun/artikli/{request.PjUid}/{request.DateFrom.ToString("dd.MM.yyyy")}/{request.DateTo.ToString("dd.MM.yyyy")}";
@@ -32,7 +20,7 @@ public class LuceedTransactionFetcher: ILuceedTransactionFetcher
             return JsonConvert.DeserializeObject<LuceedTransactionArticleResponse>(responseBody);
         }
 
-        return await resolveLuceedTransactionArticleCache(uri);
+        return await ResolveLuceedTransactionArticleCache(uri);
     }
 
     public async Task<LuceedTransactionPaymentResponse?> FetchLuceedPaymentTransactions(LuceedTransactionRequest request)
@@ -44,10 +32,10 @@ public class LuceedTransactionFetcher: ILuceedTransactionFetcher
             return JsonConvert.DeserializeObject<LuceedTransactionPaymentResponse>(responseBody);
         }
 
-        return await resolveLuceedTransactionPaymentCache(uri);
+        return await ResolveLuceedTransactionPaymentCache(uri);
     }
 
-    private async Task<LuceedTransactionArticleResponse?> resolveLuceedTransactionArticleCache(string uri)
+    private async Task<LuceedTransactionArticleResponse?> ResolveLuceedTransactionArticleCache(string uri)
     {
         var cachedResponseBody = _articlePersistence.GetCachedResponseByRequest(uri);
         if (cachedResponseBody is null)
@@ -65,7 +53,7 @@ public class LuceedTransactionFetcher: ILuceedTransactionFetcher
         return JsonConvert.DeserializeObject<LuceedTransactionArticleResponse>(cachedResponseBody.response);
     }
 
-    private async Task<LuceedTransactionPaymentResponse?> resolveLuceedTransactionPaymentCache(string uri)
+    private async Task<LuceedTransactionPaymentResponse?> ResolveLuceedTransactionPaymentCache(string uri)
     {
         var cachedResponseBody = _paymentPersistence.GetCachedResponseByRequest(uri);
         if (cachedResponseBody is null)

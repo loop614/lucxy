@@ -9,7 +9,8 @@ public class LucxyCorePersistence
     public LucxyCorePersistence(IConfiguration config)
     {
         var settingsSql = config.GetSection("Sql").Get<LucxySqlSettings>();
-        if (settingsSql is null) {
+        if (settingsSql is null)
+        {
             Console.WriteLine("Error: Could not load sql settings");
         }
         _connection = new NpgsqlConnection(settingsSql?.ConnectionString);

@@ -1,30 +1,18 @@
-namespace Lucxy.LuceedArticle.Domain;
-
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Lucxy.LuceedArticle.Transfer;
 using Lucxy.LuceedClient;
 using Lucxy.LuceedArticle.Persistence;
 
-public class LuceedArticleFetcher: ILuceedArticleFetcher
+namespace Lucxy.LuceedArticle.Domain;
+
+public class LuceedArticleFetcher(ILuceedClientFacade luceedClientFacade, ILuceedArticlePersistence persistence) : ILuceedArticleFetcher
 {
-    private readonly ILuceedClientFacade _luceedClientFacade;
-    private readonly ILuceedArticlePersistence _persistence;
-
-    public LuceedArticleFetcher(
-        ILuceedClientFacade luceedClientFacade,
-        ILuceedArticlePersistence persistence
-    ) {
-        _luceedClientFacade = luceedClientFacade;
-        _persistence = persistence;
-    }
-
     public async Task<LuceedArticleResponse?> FetchLuceedArticlesWhereNameLike(LuceedArticleRequest luceedArticleRequest)
     {
         var uri = $"artikli/naziv/{luceedArticleRequest.Name}/[{luceedArticleRequest.From},{luceedArticleRequest.To}]";
         if (!LuceedArticleConfig.useDbCaching)
         {
-            var responseBody = await _luceedClientFacade.Get(uri);
+            var responseBody = await luceedClientFacade.Get(uri);
             return JsonConvert.DeserializeObject<LuceedArticleResponse>(responseBody);
         }
 
@@ -33,7 +21,7 @@ public class LuceedArticleFetcher: ILuceedArticleFetcher
 
     private async Task<LuceedArticleResponse?> ResolveLuceedArticleCache(string uri)
     {
-        var cachedResponseBody = _persistence.GetCachedResponseByRequest(uri);
+        var cachedResponseBody = persistence.GetCachedResponseByRequest(uri);
         if (cachedResponseBody is null)
         {
             return await FetcheArticleAndUpdateCache(uri);
@@ -42,7 +30,7 @@ public class LuceedArticleFetcher: ILuceedArticleFetcher
         var cacheDuration = (new DateTime() - cachedResponseBody.createdAt).TotalMinutes;
         if (cacheDuration > LuceedArticleConfig.cachingMinutes)
         {
-            _persistence.DeleteCachedResponse(cachedResponseBody.id);
+            persistence.DeleteCachedResponse(cachedResponseBody.id);
             return await FetcheArticleAndUpdateCache(uri);
         }
 
@@ -51,8 +39,8 @@ public class LuceedArticleFetcher: ILuceedArticleFetcher
 
     private async Task<LuceedArticleResponse?> FetcheArticleAndUpdateCache(string uri)
     {
-        var responseBody = await _luceedClientFacade.Get(uri);
-        _persistence.SaveCachedResponse(uri, responseBody);
+        var responseBody = await luceedClientFacade.Get(uri);
+        persistence.SaveCachedResponse(uri, responseBody);
         return JsonConvert.DeserializeObject<LuceedArticleResponse>(responseBody);
     }
 }

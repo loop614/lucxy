@@ -4,12 +4,8 @@ using Lucxy.LucxyCore.Model;
 
 namespace Lucxy.LuceedTransaction.Persistence;
 
-public class LuceedTransactionArticlePersistence : LucxyCorePersistence, ILuceedTransactionArticlePersistence
+public class LuceedTransactionArticlePersistence(IConfiguration config) : LucxyCorePersistence(config), ILuceedTransactionArticlePersistence
 {
-    public LuceedTransactionArticlePersistence(IConfiguration config) : base(config)
-    {
-    }
-
     public void SaveCachedResponse(string uri, string responseBody)
     {
         const string sql = @"INSERT INTO luceed_transaction_article_cache (request, response, created_at) VALUES (@request, @response, @created_at)";

@@ -1,13 +1,9 @@
 namespace Lucxy.LuceedClient;
 
-public class LuceedClientFacade : ILuceedClientFacade
+public class LuceedClientFacade(ILuceedGetter luceedClientGetter) : ILuceedClientFacade
 {
-    private readonly ILuceedGetter _luceedClientGetter;
-    public LuceedClientFacade(ILuceedGetter luceedClientGetter) {
-        _luceedClientGetter = luceedClientGetter;
-    }
-
-    public Task<String> Get(String uri) {
-        return _luceedClientGetter.Get(uri);
+    public Task<String> Get(String uri)
+    {
+        return luceedClientGetter.Get(uri);
     }
 }

@@ -1,6 +1,6 @@
 ### Description
-- dotnet 7 app proxying to [luceed](https://kb.luceed.hr/)
-- using C# 11 and dotnet 7.0.404 on debian 12
+- dotnet app proxying to [luceed](https://kb.luceed.hr/)
+- using C# 12 and dotnet 8.0.100 on debian 12
 - postgres caching needs to be enabled per module in moduleConfig, and in appsettings json
 
 ### Requirements

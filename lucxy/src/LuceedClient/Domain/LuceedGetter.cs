@@ -9,7 +9,8 @@ public class LuceedGetter : ILuceedGetter
         _httpClientFactory = httpClientFactory;
     }
 
-    public async Task<String> Get(String uri) {
+    public async Task<String> Get(String uri)
+    {
         HttpClient client = _httpClientFactory.CreateClient("Luceed");
         HttpResponseMessage luceedArticleResponse = await client.GetAsync(uri);
         luceedArticleResponse.EnsureSuccessStatusCode();

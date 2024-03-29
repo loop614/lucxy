@@ -5,19 +5,13 @@ namespace Lucxy.LuceedArticle.Controller;
 
 [Route("luceed/article")]
 [ApiController]
-public class LuceedArticleController : ControllerBase
+public class LuceedArticleController(ILuceedArticleFacade facade) : ControllerBase
 {
-    private readonly ILuceedArticleFacade _facade;
-
-    public LuceedArticleController(ILuceedArticleFacade facade)
-    {
-        _facade = facade;
-    }
-
     [Route("{name}/{from}/{to}")]
-    public async Task<IActionResult> Article (String name, int from, int to) {
+    public async Task<IActionResult> Article(String name, int from, int to)
+    {
         LuceedArticleRequest luceedArticleRequest = new(name, from, to);
-        var articles = await _facade.FetchLuceedArticlesWhereNameLike(luceedArticleRequest);
+        var articles = await facade.FetchLuceedArticlesWhereNameLike(luceedArticleRequest);
 
         return Ok(articles);
     }

@@ -1,16 +1,11 @@
 using Dapper;
-using Npgsql;
 using Lucxy.LucxyCore.Persistence;
 using Lucxy.LucxyCore.Model;
 
 namespace Lucxy.LuceedTransaction.Persistence;
 
-public class LuceedTransactionPaymentPersistence : LucxyCorePersistence, ILuceedTransactionPaymentPersistence
+public class LuceedTransactionPaymentPersistence(IConfiguration config) : LucxyCorePersistence(config), ILuceedTransactionPaymentPersistence
 {
-    public LuceedTransactionPaymentPersistence(IConfiguration config) : base(config)
-    {
-    }
-
     public void SaveCachedResponse(string uri, string responseBody)
     {
         const string sql = @"INSERT INTO luceed_transaction_payment_cache (request, response, created_at) VALUES (@request, @response, @created_at)";

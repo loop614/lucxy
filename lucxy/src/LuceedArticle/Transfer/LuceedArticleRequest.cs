@@ -8,7 +8,8 @@ public class LuceedArticleRequest
 
     public int To { get; set; }
 
-    public LuceedArticleRequest(string name, int from, int to) {
+    public LuceedArticleRequest(string name, int from, int to)
+    {
         Name = name;
         From = from;
         To = to;
